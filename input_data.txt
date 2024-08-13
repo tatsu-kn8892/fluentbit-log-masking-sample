@@ -1,0 +1,1 @@
+{"field_1": "マスクしない文字列", "field_2": "abcマスクする文字列", "nest": {"masked_field": "マスクする文字列", "unmasked_field": "マスクしない文字列"}, "mask_fields": "field_2,nest.masked_field"}

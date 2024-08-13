@@ -1,0 +1,31 @@
+service:
+  parsers_file: /work/parsers.conf
+
+pipeline:
+  inputs:
+    - name: tail
+      path: /tmp/test
+      tag: application_log
+      refresh_interval: 5
+
+  filters:
+    - name: parser
+      match: "*"
+      key_name: log
+      parser: json-parser
+
+  outputs:
+    - name: file
+      match: "*"
+      path: /work/logs
+      file: raw.log
+    - name: file
+      match: "*"
+      path: /work/logs
+      file: masked.log
+      processors:
+        logs:
+          - name: lua
+            script: modify_records.lua
+            call: mask_log_field
+            protected_mode: true
